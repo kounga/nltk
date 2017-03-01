@@ -6,7 +6,7 @@ class Lexique(object):
     __dictionnaire = None
 
     def __init__(self):
-        self.dictionnaire = self.generer_dictionnaire("Lexical/original.txt")
+        self.dictionnaire = self.generer_dictionnaire("Lexical/banque_mots.txt")
 
 
     def generer_dictionnaire(self,text):
