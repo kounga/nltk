@@ -11,7 +11,10 @@ lexi = LexiqueClass.Lexique()
 
 #Valide que chaque mots de l'énoncer fait partie de notre lexique
 #(J'ai remplacé dans le text de MAD John par James_Bond pour demontrer l'erreur)
-lexi.valide_lexicalement(enonce)
+if(lexi.est_valide_lexicalement(enonce)):
+    print("Bon lexicalement")
+else:
+    print("Mauvais lexicalement")
 
 
 
