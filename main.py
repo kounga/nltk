@@ -3,6 +3,12 @@ import codecs
 from nltk import *
 from Lexical import LexiqueClass
 
+verbs = {
+    "suspects" : "is-suspect",
+    "dans" : "at-loc",
+    "victime" : "victim"
+    }
+
 with codecs.open("grammaire.cfg", 'r', encoding='utf8') as f:
     grammaireText2=f.read()
 
@@ -35,10 +41,106 @@ tokens11 = "La victime n'a pas d’alcool dans son sang."
 tokens12 = "Claude est le propriétaire du couteau de cuisine, mais il l'a prêté à John."
 #Texte complet de MAD
 #tokens3 = enonce.split()
-splittedText = nltk.word_tokenize(tokens8)
 
 parser = parse.FeatureEarleyChartParser(grammar)
+
+# =====================================================================
+# Phrase 1 : "Les suspects sont Claude, Jeannette, Ivan, Karl et John."
+print("")
+print("=====================================================================")
+print("Phrase 1 : Les suspects sont Claude, Jeannette, Ivan, Karl et John.")
+cleanedWords=[]
+facts=[]
+splittedText = nltk.word_tokenize(tokens1)
 trees = parser.parse(splittedText)
+
+# Construct tree
 for tree in trees:
-    nltk.draw.tree.draw_trees(tree)
-    print(tree.label()['SEM'])
+    # uncomment to see the trees
+    # nltk.draw.tree.draw_trees(tree)
+    rawWords = str(tree.label()['SEM']).split(',')
+
+# Debug
+print(rawWords)
+
+# Clean up
+for word in rawWords:
+     cleanWord = word.replace("(","").replace(")","").strip()
+     cleanedWords.append(cleanWord)
+
+# Construct facts
+for word in cleanedWords:
+    if word not in verbs:
+        print("({verb} {word})".format(verb=verbs[cleanedWords[0]], word=word))
+
+
+# =====================================================================
+# Phrase 2 : La victime a été retrouvé dans le salon à 21 heures
+print("")
+print("=====================================================================")
+print("Phrase 2 : La victime a été retrouvé dans le salon à 21 heures")
+cleanedWords=[]
+facts=[]
+splittedText = nltk.word_tokenize(tokens2)
+trees = parser.parse(splittedText)
+
+# Construct tree
+for tree in trees:
+    # uncomment to see the trees
+    # nltk.draw.tree.draw_trees(tree)
+    rawWords = str(tree.label()['SEM']).split(',')
+
+# Debug
+print(rawWords)
+
+# Clean up
+for word in rawWords:
+     cleanWord = word.replace("(","").replace(")","").strip()
+     cleanedWords.append(cleanWord)
+
+nbItems = 0
+for i in cleanedWords:
+    nbItems+=1
+
+# Construct facts
+fact=""
+for i in range(0, nbItems):
+
+    if cleanedWords[i].lower() == "victime":
+        fact = "victim"
+    elif cleanedWords[i].lower() == "heures":
+        fact += " at " + cleanedWords[i-1]
+    elif cleanedWords[i].lower() == "dans":
+        fact += " at-loc " + cleanedWords[i+1]
+        
+print("({fact})".format(fact=fact))
+
+# =====================================================================
+# Phrase 3 : Le corps est chaud.
+print("")
+print("=====================================================================")
+print("Phrase 3 : Le corps est chaud.")
+cleanedWords=[]
+facts=[]
+splittedText = nltk.word_tokenize(tokens3)
+trees = parser.parse(splittedText)
+
+# Construct tree
+for tree in trees:
+    # uncomment to see the trees
+    # nltk.draw.tree.draw_trees(tree)
+    rawWords = str(tree.label()['SEM']).split(',')
+
+# Debug
+print(rawWords)
+
+# Clean up
+for word in rawWords:
+     cleanWord = word.replace("(","").replace(")","").strip()
+     cleanedWords.append(cleanWord)
+
+fact=""
+for word in cleanedWords:
+    fact+=word + " "
+    
+print("(is {fact})".format(fact=fact))
