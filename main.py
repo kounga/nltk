@@ -43,7 +43,6 @@ tokens7 = "Les objets trouvés sur la scène du crime sont un couteau de cuisine
 #tokens8 = "Le couteau de cuisine est ensanglanté"
 tokens8 = "Le couteau de cuisine est ensanglanté."
 tokens9 = "Jeannette, Ivan et Karl n'ont pas bu."
-#tokens10 = "Claude et jeannette ont vu un homme dans le salon en compagnie de la victime vers 21 heure."
 tokens11 = "La victime n'a pas d'alcool dans son sang."
 tokens12 = "Le couteau de cuisine appartient à Claude, mais il l'a prêté à John."
 #Texte complet de MAD
@@ -58,13 +57,13 @@ print("=====================================================================")
 print("Phrase 1 : {phrase}".format(phrase=tokens1))
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(tokens12)
+splittedText = nltk.word_tokenize(tokens1)
 trees = parser.parse(splittedText)
 
 # Construct tree
 for tree in trees:
     # uncomment to see the trees
-    nltk.draw.tree.draw_trees(tree)
+    # nltk.draw.tree.draw_trees(tree)
     rawWords = str(tree.label()['SEM']).split(',')
 
 try:
@@ -192,31 +191,40 @@ for tree in trees:
     # uncomment to see the trees
     # nltk.draw.tree.draw_trees(tree)
     rawWords = str(tree.label()['SEM']).split(',')
+    
+try:
+    if rawWords is None:
+        print("rawWords is None!")
+except NameError:
+    print("Could not build tree using the grammar.")
+else:
+    # Debug
+    if enableDebug:
+        print(rawWords)
+        
+    i=0
+    for element in rawWords:
+        rawWords[i]=element.replace("(","").replace(")","").replace(" ","")
+        i+=1
 
-# Debug
-print(rawWords)
+    fact="("
+    i=0
+    for word in rawWords:
+        if word == "Claude":
+            fact += "Claude"
+        elif word == "quitté":
+            fact += " exit "
+        elif  word == "salon":
+            fact += "salon"
+        elif  word == "heures":
+            fact += " at " + rawWords[i-1]
+        i+=1;
+    fact+=")"
 
+    if enableDebug:
+        print(fact)
 
-i=0
-for element in rawWords:
-    rawWords[i]=element.replace("(","").replace(")","").replace(" ","")
-    i+=1
-
-fact="( "
-i=0
-for word in rawWords:
-    if word == "Claude":
-        fact += "Claude"
-    elif word == "quitté":
-        fact += " exit "
-    elif  word == "salon":
-        fact += "salon"
-    elif  word == "heures":
-        fact += " at " + rawWords[i-1]
-    i+=1;
-fact+=" )"
-print(fact)
-
+    allFacts.append(fact)
 
 # =====================================================================
 # Phrase 5 : Il mangeait un sac de chips.
@@ -233,31 +241,40 @@ for tree in trees:
     # nltk.draw.tree.draw_trees(tree)
     rawWords = str(tree.label()['SEM']).split(',')
 
-# Debug
-print(rawWords)
+try:
+    if rawWords is None:
+        print("rawWords is None!")
+except NameError:
+    print("Could not build tree using the grammar.")
+else:
+    # Debug
+    if enableDebug:
+        print(rawWords)
+      
+    i=0
+    for element in rawWords:
+        rawWords[i]=element.replace("(","").replace(")","").replace(" ","")
+        i+=1
 
+    fact="("
+    i=0
+    for word in rawWords:
 
-i=0
-for element in rawWords:
-    rawWords[i]=element.replace("(","").replace(")","").replace(" ","")
-    i+=1
+        if word == "Il":
+            fact += "Claude"
+        elif word == "mangeait":
+            fact += " ate "
+        elif  word == "sacdechips":
+            fact += "chips at 19"
 
-fact="( "
-i=0
-for word in rawWords:
+        i+=1;
 
-    if word == "Il":
-        fact += "Claude"
-    elif word == "mangeait":
-        fact += " ate "
-    elif  word == "sacdechips":
-        fact += "chips at 19"
+    fact+=")"
 
-    i+=1;
+    if enableDebug:
+        print(fact)
 
-fact+=" )"
-print(fact)
-
+    allFacts.append(fact)
 
 # =====================================================================
 # Phrase 6 : C'est Karl qui a trouvé le corps à 23 heures.
@@ -459,6 +476,56 @@ else:
             print("({partial_fact} {person}".format(partial_fact=fact, person=cleanedWords[i]))
         allFacts.append("({partial_fact} {person}".format(partial_fact=fact, person=cleanedWords[i]))
 
+print("")
+print("=====================================================================")
+print("Phrase 12 : {phrase}".format(phrase=tokens12))
+cleanedWords=[]
+facts=[]
+splittedText = nltk.word_tokenize(tokens12)
+trees = parser.parse(splittedText)
+
+# Construct tree
+for tree in trees:
+    # uncomment to see the trees
+    # nltk.draw.tree.draw_trees(tree)
+    rawWords = str(tree.label()['SEM']).split(',')
+
+try:
+    if rawWords is None:
+        print("rawWords is None!")
+except NameError:
+    print("Could not build tree using the grammar.")
+else:
+    # Debug
+    if enableDebug:
+        print(rawWords)
+
+    # Clean up
+    for word in rawWords:
+         cleanWord = word.replace("(","").replace(")","").strip()
+         cleanedWords.append(cleanWord)
+         
+    proprietaire=""
+    locateur="John"
+    quoi=""
+    fact=""
+            
+    nbItems = 0
+    for i in cleanedWords:
+        nbItems+=1
+        
+    for i in range(0, nbItems - 1):
+        if cleanedWords[i] != "mais":
+            if cleanedWords[i] == "couteau de cuisine":
+                quoi = cleanedWords[i]
+            elif cleanedWords[i] == "Claude":
+                proprietaire=cleanedWords[i]
+                  
+    fact="({action} {what} {who})".format(what=quoi, action=cleanedWords[i], who=proprietaire)
+    allFacts.append(fact)
+    fact="({action} {what} {who})".format(what=quoi, action="en-possession", who=locateur)
+    allFacts.append(fact)
+    
 # =====================================================
 # Print all facts
 # =====================================================
