@@ -31,15 +31,29 @@ for phrase in phrases_de_histoire:
     print(i,")",phrase)
 
 
-# Instance de la classe Lexique
-lexi = LexiqueClass.Lexique()
-lexi.est_valide_lexicalement(histoire)
+
+
 
 grammar = grammar.FeatureGrammar.fromstring(grammaireText2)
 parser = nltk.ChartParser(grammar)
 
+print("")
+print("=====================================================================")
+i=0
+for phrase_a_valider in phrases_de_histoire:
+    try:
+        if(i!=9):
+            splittedText = nltk.word_tokenize(phrase_a_valider)
+            trees = parser.parse(splittedText)
+    except:
+        print("« ",phrase_a_valider," » n'est pas syntaxiquement correct")
+    i+=1
 
+trees = None
+splittedText = None
 
+lexi = LexiqueClass.Lexique()
+lexi.est_valide_lexicalement(histoire)
 
 parser = parse.FeatureEarleyChartParser(grammar)
 
