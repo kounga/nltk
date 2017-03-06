@@ -38,30 +38,18 @@ lexi.est_valide_lexicalement(histoire)
 grammar = grammar.FeatureGrammar.fromstring(grammaireText2)
 parser = nltk.ChartParser(grammar)
 
-tokens1 = "Les suspects sont Claude, Jeannette, Ivan, Karl et John."
-tokens2 = "Le cadavre a été retrouvée dans le salon à 21 heures."
-tokens3 = "Le corps est chaud."
-tokens4 = "Claude a quitté le salon vers 19 heures."
-tokens5 = "Il mangeait un sac de chips."
-tokens6 = "C'est Karl qui a trouvé le corps à 23 heures."
-tokens7 = "Les objets trouvés sur la scène du crime sont un couteau de cuisine, un sac de chips et un verre d'alcool vide."
-tokens8 = "Le couteau de cuisine est ensanglanté."
-tokens9 = "Jeannette, Ivan et Karl n'ont pas bu."
-#tokens10 = "Claude et Jeannette ont vu un homme dans le salon en compagnie de la victime vers 21 heure."
-tokens11 = "La victime n'a pas d'alcool dans son sang."
-tokens12 = "Le couteau de cuisine appartient à Claude, mais il l'a prêté à John."
+
 
 
 parser = parse.FeatureEarleyChartParser(grammar)
 
 # =====================================================================
-# Phrase 1 : "Les suspects sont Claude, Jeannette, Ivan, Karl et John."
 print("")
 print("=====================================================================")
-print("Phrase 1 : {phrase}".format(phrase=tokens1))
+print("Phrase 1 : {phrase}".format(phrase=phrases_de_histoire[0]))
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(tokens1)
+splittedText = nltk.word_tokenize(phrases_de_histoire[0])
 trees = parser.parse(splittedText)
 
 # Construct tree
@@ -94,13 +82,12 @@ else:
 
 
 # =====================================================================
-# Phrase 2 : La victime a été retrouvé dans le salon à 21 heures
 print("")
 print("=====================================================================")
-print("Phrase 2 : {phrase}".format(phrase=tokens2))
+print("Phrase 2 : {phrase}".format(phrase=phrases_de_histoire[1]))
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(tokens2)
+splittedText = nltk.word_tokenize(phrases_de_histoire[1])
 trees = parser.parse(splittedText)
 
 # Construct tree
@@ -143,13 +130,12 @@ else:
     allFacts.append("({fact})".format(fact=fact))
 
 # =====================================================================
-# Phrase 3 : Le corps est chaud.
 print("")
 print("=====================================================================")
-print("Phrase 3 : {phrase}".format(phrase=tokens3))
+print("Phrase 3 : {phrase}".format(phrase=phrases_de_histoire[2]))
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(tokens3)
+splittedText = nltk.word_tokenize(phrases_de_histoire[2])
 trees = parser.parse(splittedText)
 
 # Construct tree
@@ -182,13 +168,12 @@ else:
     allFacts.append("(description {fact})".format(fact=fact))
 
 # =====================================================================
-# Phrase 4 : Claude a quitté le salon vers 19 heures.
 print("")
 print("=====================================================================")
-print("Phrase 4 : Claude a quitté le salon vers 19 heures.")
+print("Phrase 4 : ",phrases_de_histoire[3])
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(tokens4)
+splittedText = nltk.word_tokenize(phrases_de_histoire[3])
 trees = parser.parse(splittedText)
 
 for tree in trees:
@@ -231,13 +216,12 @@ else:
     allFacts.append(fact)
 
 # =====================================================================
-# Phrase 5 : Il mangeait un sac de chips.
 print("")
 print("=====================================================================")
-print("Phrase 5 : Il mangeait un sac de chips.")
+print("Phrase 5 : ",phrases_de_histoire[4])
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(tokens5)
+splittedText = nltk.word_tokenize(phrases_de_histoire[4])
 trees = parser.parse(splittedText)
 
 for tree in trees:
@@ -281,13 +265,12 @@ else:
     allFacts.append(fact)
 
 # =====================================================================
-# Phrase 6 : C'est Karl qui a trouvé le corps à 23 heures.
 print("")
 print("=====================================================================")
-print("Phrase 6 : {phrase}".format(phrase=tokens6))
+print("Phrase 6 : {phrase}".format(phrase=phrases_de_histoire[5]))
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(tokens6)
+splittedText = nltk.word_tokenize(phrases_de_histoire[5])
 trees = parser.parse(splittedText)
 
 # Construct tree
@@ -330,13 +313,12 @@ else:
     allFacts.append("({fact})".format(fact=fact))
 
 # =====================================================================
-# Phrase 7 : Les objets trouvés sur la scène du crime sont un couteau de cuisine, un sac de chips et un verre d'alcool vide.
 print("")
 print("=====================================================================")
-print("Phrase 7 : {phrase}".format(phrase=tokens7))
+print("Phrase 7 : {phrase}".format(phrase=phrases_de_histoire[6]))
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(tokens7)
+splittedText = nltk.word_tokenize(phrases_de_histoire[6])
 trees = parser.parse(splittedText)
 
 # Construct tree
@@ -383,13 +365,12 @@ else:
             allFacts.append("({partial_fact} {obj} {desc})".format(partial_fact=fact, obj=cleanedWords[i], desc=""))
 
 # =====================================================================
-# Phrase 8 : Le couteau de cuisine est ensanglanté.
 print("")
 print("=====================================================================")
-print("Phrase 8 : {phrase}".format(phrase=tokens8))
+print("Phrase 8 : {phrase}".format(phrase=phrases_de_histoire[7]))
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(tokens8)
+splittedText = nltk.word_tokenize(phrases_de_histoire[7])
 trees = parser.parse(splittedText)
 
 # Construct tree
@@ -430,13 +411,12 @@ else:
     allFacts.append("(description {fact})".format(fact=fact))
 
 # =====================================================================
-# Phrase 9 : Jeannette, Ivan et Karl n'ont pas bu.
 print("")
 print("=====================================================================")
-print("Phrase 9 : {phrase}".format(phrase=tokens9))
+print("Phrase 9 : {phrase}".format(phrase=phrases_de_histoire[8]))
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(tokens9)
+splittedText = nltk.word_tokenize(phrases_de_histoire[8])
 trees = parser.parse(splittedText)
 
 # Construct tree
@@ -480,14 +460,50 @@ else:
             print("({partial_fact} {person}".format(partial_fact=fact, person=cleanedWords[i]))
         allFacts.append("({partial_fact} {person}".format(partial_fact=fact, person=cleanedWords[i]))
 
-# =====================================================================
-# Phrase 11 : La victime n'a pas d'alcool dans son sang.
+# # =====================================================================
+# print("")
+# print("=====================================================================")
+# print("Phrase 1 : {phrase}".format(phrase=phrases_de_histoire[9]))
+# cleanedWords = []
+# facts = []
+# splittedText = nltk.word_tokenize(phrases_de_histoire[9])
+# trees = parser.parse(splittedText)
+#
+# # Construct tree
+# for tree in trees:
+#     # uncomment to see the trees
+#     # nltk.draw.tree.draw_trees(tree)
+#     rawWords = str(tree.label()['SEM']).split(',')
+#
+# try:
+#     if rawWords is None:
+#         print("rawWords is None!")
+# except NameError:
+#     print("Could not build tree using the grammar.")
+# else:
+#     # Debug
+#     if enableDebug:
+#         print(rawWords)
+#
+#     # Clean up
+#     for word in rawWords:
+#         cleanWord = word.replace("(", "").replace(")", "").strip()
+#         cleanedWords.append(cleanWord)
+#
+#     # Construct facts
+#     for word in cleanedWords:
+#         if word not in verbs:
+#             allFacts.append("({verb} {word})".format(verb=verbs[cleanedWords[0]], word=word))
+#             if enableDebug:
+#                 print("({verb} {word})".format(verb=verbs[cleanedWords[0]], word=word))
+
+
 print("")
 print("=====================================================================")
-print("Phrase 11 : La victime n'a pas d'alcool dans son sang.")
+print("Phrase 11 : ",phrases_de_histoire[10])
 cleanedWords = []
 facts = []
-splittedText = nltk.word_tokenize(tokens11)
+splittedText = nltk.word_tokenize(phrases_de_histoire[10])
 trees = parser.parse(splittedText)
 
 for tree in trees:
@@ -528,10 +544,10 @@ else:
 
 print("")
 print("=====================================================================")
-print("Phrase 12 : {phrase}".format(phrase=tokens12))
+print("Phrase 12 : {phrase}".format(phrase=phrases_de_histoire[11]))
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(tokens12)
+splittedText = nltk.word_tokenize(phrases_de_histoire[11])
 trees = parser.parse(splittedText)
 
 # Construct tree
@@ -575,6 +591,7 @@ else:
     allFacts.append(fact)
     fact="({action} {what} {who})".format(what=quoi, action="en-possession", who=locateur)
     allFacts.append(fact)
+    print(fact)
     
 
 fichierFact = codecs.open("facts.txt", "w", "utf-8")
