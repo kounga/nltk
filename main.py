@@ -26,7 +26,7 @@ parser = nltk.ChartParser(grammar)
 tokens0 = "Les et Les"
 tokens = "Le Jean tua Marie."
 tokens1 = "Les suspects sont Claude, Jeannette, Ivan, Karl et John."
-tokens2 = "La victime a été retrouvé dans le salon à 21 heures."
+tokens2 = "Le cadavre a été retrouvée dans le salon à 21 heures."
 tokens3 = "Le corps est chaud."
 tokens4 = "Claude a quitté le salon vers 19 heures."
 tokens5 = "Il mangeait un sac de chips."
@@ -37,8 +37,8 @@ tokens7 = "Les objets trouvés sur la scène du crime sont un couteau de cuisine
 tokens8 = "Le couteau de cuisine est ensanglanté."
 tokens9 = "Jeannette, Ivan et Karl n'ont pas bu."
 #tokens10 = "Claude et jeannette ont vu un homme dans le salon en compagnie de la victime vers 21 heure."
-tokens11 = "La victime n'a pas d’alcool dans son sang."
-tokens12 = "Claude est le propriétaire du couteau de cuisine, mais il l'a prêté à John."
+tokens11 = "La victime n'a pas d'alcool dans son sang."
+tokens12 = "Le couteau de cuisine appartient à claude, mais il l'a prêté à John."
 #Texte complet de MAD
 #tokens3 = enonce.split()
 
@@ -51,13 +51,13 @@ print("=====================================================================")
 print("Phrase 1 : Les suspects sont Claude, Jeannette, Ivan, Karl et John.")
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(tokens1)
+splittedText = nltk.word_tokenize(tokens11)
 trees = parser.parse(splittedText)
 
 # Construct tree
 for tree in trees:
     # uncomment to see the trees
-    # nltk.draw.tree.draw_trees(tree)
+    nltk.draw.tree.draw_trees(tree)
     rawWords = str(tree.label()['SEM']).split(',')
 
 # Debug
