@@ -1,0 +1,20 @@
+(is-suspect Claude)
+(is-suspect Jeannette)
+(is-suspect Ivan)
+(is-suspect Karl)
+(is-suspect John)
+(corps at-loc salon at 21)
+(description corps chaud )
+(Claude exit salon at 19)
+(Claude ate chips at 19)
+(has-found Karl corps at 23)
+(object at-loc scène du crime couteau de cuisine )
+(object at-loc scène du crime sac de chips )
+(object at-loc scène du crime verre d'alcool )
+(description couteau de cuisine ensanglanté )
+(has-not bu Karl
+(has-not bu Ivan
+(has-not bu Jeannette
+( etat victime ( not alcool sang))
+(prêté couteau de cuisine Claude)
+(en-possession couteau de cuisine John)

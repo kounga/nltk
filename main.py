@@ -42,9 +42,8 @@ print("=====================================================================")
 i=0
 for phrase_a_valider in phrases_de_histoire:
     try:
-        if(i!=9):
-            splittedText = nltk.word_tokenize(phrase_a_valider)
-            trees = parser.parse(splittedText)
+        splittedText = nltk.word_tokenize(phrase_a_valider)
+        trees = parser.parse(splittedText)
     except:
         print("« ",phrase_a_valider," » n'est pas syntaxiquement correct")
     i+=1
@@ -474,50 +473,13 @@ else:
             print("({partial_fact} {person}".format(partial_fact=fact, person=cleanedWords[i]))
         allFacts.append("({partial_fact} {person}".format(partial_fact=fact, person=cleanedWords[i]))
 
-# # =====================================================================
-# print("")
-# print("=====================================================================")
-# print("Phrase 1 : {phrase}".format(phrase=phrases_de_histoire[9]))
-# cleanedWords = []
-# facts = []
-# splittedText = nltk.word_tokenize(phrases_de_histoire[9])
-# trees = parser.parse(splittedText)
-#
-# # Construct tree
-# for tree in trees:
-#     # uncomment to see the trees
-#     # nltk.draw.tree.draw_trees(tree)
-#     rawWords = str(tree.label()['SEM']).split(',')
-#
-# try:
-#     if rawWords is None:
-#         print("rawWords is None!")
-# except NameError:
-#     print("Could not build tree using the grammar.")
-# else:
-#     # Debug
-#     if enableDebug:
-#         print(rawWords)
-#
-#     # Clean up
-#     for word in rawWords:
-#         cleanWord = word.replace("(", "").replace(")", "").strip()
-#         cleanedWords.append(cleanWord)
-#
-#     # Construct facts
-#     for word in cleanedWords:
-#         if word not in verbs:
-#             allFacts.append("({verb} {word})".format(verb=verbs[cleanedWords[0]], word=word))
-#             if enableDebug:
-#                 print("({verb} {word})".format(verb=verbs[cleanedWords[0]], word=word))
-
 
 print("")
 print("=====================================================================")
-print("Phrase 11 : ",phrases_de_histoire[10])
+print("Phrase 10 : ",phrases_de_histoire[9])
 cleanedWords = []
 facts = []
-splittedText = nltk.word_tokenize(phrases_de_histoire[10])
+splittedText = nltk.word_tokenize(phrases_de_histoire[9])
 trees = parser.parse(splittedText)
 
 for tree in trees:
@@ -558,10 +520,10 @@ else:
 
 print("")
 print("=====================================================================")
-print("Phrase 12 : {phrase}".format(phrase=phrases_de_histoire[11]))
+print("Phrase 11 : {phrase}".format(phrase=phrases_de_histoire[10]))
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(phrases_de_histoire[11])
+splittedText = nltk.word_tokenize(phrases_de_histoire[10])
 trees = parser.parse(splittedText)
 
 # Construct tree
