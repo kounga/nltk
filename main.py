@@ -39,8 +39,7 @@ tokens4 = "Claude a quitté le salon vers 19 heures."
 tokens5 = "Il mangeait un sac de chips."
 tokens6 = "C'est Karl qui a trouvé le corps à 23 heures."
 tokens7 = "Les objets trouvés sur la scène du crime sont un couteau de cuisine, un sac de chips et un verre d'alcool vide."
-#tokens8 = "Le couteau est taché de sang."
-#tokens8 = "Le couteau de cuisine est ensanglanté"
+
 tokens8 = "Le couteau de cuisine est ensanglanté."
 tokens9 = "Jeannette, Ivan et Karl n'ont pas bu."
 tokens11 = "La victime n'a pas d'alcool dans son sang."
@@ -476,6 +475,54 @@ else:
             print("({partial_fact} {person}".format(partial_fact=fact, person=cleanedWords[i]))
         allFacts.append("({partial_fact} {person}".format(partial_fact=fact, person=cleanedWords[i]))
 
+# =====================================================================
+# Phrase 11 : La victime n'a pas d'alcool dans son sang.
+print("")
+print("=====================================================================")
+print("Phrase 11 : La victime n'a pas d'alcool dans son sang.")
+cleanedWords = []
+facts = []
+splittedText = nltk.word_tokenize(tokens11)
+trees = parser.parse(splittedText)
+
+for tree in trees:
+    # uncomment to see the trees
+    # nltk.draw.tree.draw_trees(tree)
+    rawWords = str(tree.label()['SEM']).split(',')
+
+try:
+    if rawWords is None:
+        print("rawWords is None!")
+except NameError:
+    print("Could not build tree using the grammar.")
+else:
+    # Debug
+    if enableDebug:
+        print(rawWords)
+
+    i = 0
+    for element in rawWords:
+        rawWords[i] = element.replace("(", "").replace(")", "").replace(" ", "")
+        i += 1
+
+    fact = "( etat victime "
+    i = 0
+    for word in rawWords:
+        if word == "sang":
+            fact += "sang"
+        elif word == "alcool" and rawWords[i-1]=="pas":
+            fact += "( not alcool "
+        i += 1;
+    fact += "))"
+
+    if enableDebug:
+        print(fact)
+
+    allFacts.append(fact)
+
+
+
+
 print("")
 print("=====================================================================")
 print("Phrase 12 : {phrase}".format(phrase=tokens12))
@@ -529,9 +576,15 @@ else:
 # =====================================================
 # Print all facts
 # =====================================================
+fichierFact = codecs.open("facts.txt", "w", "utf-8")
+
+
+#Creation du fichier Facts.txt avec les faits Jess
 print("")
 print("=====================================================")
 print("Facts : ")
 for fact in allFacts:
-    print(fact)
+    fact+="\n"
+    fichierFact.writelines(fact)
 print("=====================================================")
+fichierFact.close()
