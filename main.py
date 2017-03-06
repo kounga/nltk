@@ -45,7 +45,7 @@ tokens8 = "Le couteau de cuisine est ensanglanté."
 tokens9 = "Jeannette, Ivan et Karl n'ont pas bu."
 #tokens10 = "Claude et jeannette ont vu un homme dans le salon en compagnie de la victime vers 21 heure."
 tokens11 = "La victime n'a pas d'alcool dans son sang."
-tokens12 = "Le couteau de cuisine appartient à claude, mais il l'a prêté à John."
+tokens12 = "Le couteau de cuisine appartient à Claude, mais il l'a prêté à John."
 #Texte complet de MAD
 #tokens3 = enonce.split()
 
@@ -58,13 +58,13 @@ print("=====================================================================")
 print("Phrase 1 : {phrase}".format(phrase=tokens1))
 cleanedWords=[]
 facts=[]
-splittedText = nltk.word_tokenize(tokens1)
+splittedText = nltk.word_tokenize(tokens12)
 trees = parser.parse(splittedText)
 
 # Construct tree
 for tree in trees:
     # uncomment to see the trees
-    # nltk.draw.tree.draw_trees(tree)
+    nltk.draw.tree.draw_trees(tree)
     rawWords = str(tree.label()['SEM']).split(',')
 
 try:
