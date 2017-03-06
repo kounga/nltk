@@ -179,6 +179,87 @@ else:
     allFacts.append("(description {fact})".format(fact=fact))
 
 # =====================================================================
+# Phrase 4 : Claude a quitté le salon vers 19 heures.
+print("")
+print("=====================================================================")
+print("Phrase 4 : Claude a quitté le salon vers 19 heures.")
+cleanedWords=[]
+facts=[]
+splittedText = nltk.word_tokenize(tokens4)
+trees = parser.parse(splittedText)
+
+for tree in trees:
+    # uncomment to see the trees
+    # nltk.draw.tree.draw_trees(tree)
+    rawWords = str(tree.label()['SEM']).split(',')
+
+# Debug
+print(rawWords)
+
+
+i=0
+for element in rawWords:
+    rawWords[i]=element.replace("(","").replace(")","").replace(" ","")
+    i+=1
+
+fact="( "
+i=0
+for word in rawWords:
+    if word == "Claude":
+        fact += "Claude"
+    elif word == "quitté":
+        fact += " exit "
+    elif  word == "salon":
+        fact += "salon"
+    elif  word == "heures":
+        fact += " at " + rawWords[i-1]
+    i+=1;
+fact+=" )"
+print(fact)
+
+
+# =====================================================================
+# Phrase 5 : Il mangeait un sac de chips.
+print("")
+print("=====================================================================")
+print("Phrase 5 : Il mangeait un sac de chips.")
+cleanedWords=[]
+facts=[]
+splittedText = nltk.word_tokenize(tokens5)
+trees = parser.parse(splittedText)
+
+for tree in trees:
+    # uncomment to see the trees
+    # nltk.draw.tree.draw_trees(tree)
+    rawWords = str(tree.label()['SEM']).split(',')
+
+# Debug
+print(rawWords)
+
+
+i=0
+for element in rawWords:
+    rawWords[i]=element.replace("(","").replace(")","").replace(" ","")
+    i+=1
+
+fact="( "
+i=0
+for word in rawWords:
+
+    if word == "Il":
+        fact += "Claude"
+    elif word == "mangeait":
+        fact += " ate "
+    elif  word == "sacdechips":
+        fact += "chips at 19"
+
+    i+=1;
+
+fact+=" )"
+print(fact)
+
+
+# =====================================================================
 # Phrase 6 : C'est Karl qui a trouvé le corps à 23 heures.
 print("")
 print("=====================================================================")
