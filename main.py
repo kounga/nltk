@@ -20,18 +20,24 @@ with codecs.open("grammaire.cfg", 'r', encoding='utf8') as f:
     grammaireText2=f.read()
 
 #Lecture de l'énoncé dans le fichier txt
-with codecs.open("enonce.txt", 'r', encoding='utf8') as f:
-    enonce = f.read()
+with codecs.open("histoire.txt", 'r', encoding='utf8') as f:
+    histoire = f.read()
+
+phrases_de_histoire = nltk.sent_tokenize(histoire,'french')
+
+i=0
+for phrase in phrases_de_histoire:
+    i+=1
+    print(i,")",phrase)
+
 
 # Instance de la classe Lexique
 lexi = LexiqueClass.Lexique()
-lexi.est_valide_lexicalement(enonce)
+lexi.est_valide_lexicalement(histoire)
 
 grammar = grammar.FeatureGrammar.fromstring(grammaireText2)
 parser = nltk.ChartParser(grammar)
 
-tokens0 = "Les et Les"
-tokens = "Le Jean tua Marie."
 tokens1 = "Les suspects sont Claude, Jeannette, Ivan, Karl et John."
 tokens2 = "Le cadavre a été retrouvée dans le salon à 21 heures."
 tokens3 = "Le corps est chaud."
@@ -39,13 +45,12 @@ tokens4 = "Claude a quitté le salon vers 19 heures."
 tokens5 = "Il mangeait un sac de chips."
 tokens6 = "C'est Karl qui a trouvé le corps à 23 heures."
 tokens7 = "Les objets trouvés sur la scène du crime sont un couteau de cuisine, un sac de chips et un verre d'alcool vide."
-
 tokens8 = "Le couteau de cuisine est ensanglanté."
 tokens9 = "Jeannette, Ivan et Karl n'ont pas bu."
+#tokens10 = "Claude et Jeannette ont vu un homme dans le salon en compagnie de la victime vers 21 heure."
 tokens11 = "La victime n'a pas d'alcool dans son sang."
 tokens12 = "Le couteau de cuisine appartient à Claude, mais il l'a prêté à John."
-#Texte complet de MAD
-#tokens3 = enonce.split()
+
 
 parser = parse.FeatureEarleyChartParser(grammar)
 
@@ -521,8 +526,6 @@ else:
     allFacts.append(fact)
 
 
-
-
 print("")
 print("=====================================================================")
 print("Phrase 12 : {phrase}".format(phrase=tokens12))
@@ -573,18 +576,10 @@ else:
     fact="({action} {what} {who})".format(what=quoi, action="en-possession", who=locateur)
     allFacts.append(fact)
     
-# =====================================================
-# Print all facts
-# =====================================================
+
 fichierFact = codecs.open("facts.txt", "w", "utf-8")
-
-
 #Creation du fichier Facts.txt avec les faits Jess
-print("")
-print("=====================================================")
-print("Facts : ")
 for fact in allFacts:
     fact+="\n"
     fichierFact.writelines(fact)
-print("=====================================================")
 fichierFact.close()
