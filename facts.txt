@@ -6,7 +6,7 @@
 (corps at-loc salon at 21)
 (description corps chaud )
 (Claude exit salon at 19)
-(Claude ate chips at 19)
+(Claude ate sacdechips)
 (has-found Karl corps at 23)
 (object at-loc scène du crime couteau de cuisine )
 (object at-loc scène du crime sac de chips )
@@ -15,6 +15,6 @@
 (has-not bu Karl
 (has-not bu Ivan
 (has-not bu Jeannette
-( etat victime ( not alcool sang))
+( etat  victime ( not alcool sang))
 (prêté couteau de cuisine Claude)
 (en-possession couteau de cuisine John)
